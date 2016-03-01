@@ -1,0 +1,24 @@
+import java.applet.Applet;
+import java.awt.Color;
+import java.awt.Graphics;
+
+public class DrawLineHyptenusePattern extends Applet {
+	
+	public void start(){
+    	
+  }
+	int width, height;
+	 
+	   public void init() {
+	      width = getSize().width;
+	      height = getSize().height;
+	      setBackground( Color.black );
+	   }
+	 
+	   public void paint( Graphics g ) {
+	      g.setColor( Color.red );
+	      for ( int i = 0; i <= 900; ++i ) {
+	         g.drawLine( width, height, i * width / 40, 0 );
+	      }
+	   }
+}
