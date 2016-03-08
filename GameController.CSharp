@@ -1,0 +1,101 @@
+using UnityEngine;
+using System.Collections;
+
+public class GameController : MonoBehaviour
+{
+    public GameObject[] hazards;
+    public Vector3 spawnValues;
+    public Vector4 spawnValues2;
+    //public Vector5 spawnValues3;
+    public int hazardCount;
+    public float spawnWait;
+    public float startWait;
+    public float waveWait;
+
+    public GUIText scoreText;
+    public GUIText restartText;
+    public GUIText gameOverText;
+
+    private bool gameOver;
+    private bool restart;
+    private int score;
+
+    //This used to increase score gain
+    private int scoreMulti = 1;
+
+    void Start()
+    {
+        gameOver = false;
+        restart = false;
+        restartText.text = "";
+        gameOverText.text = "";
+        score = 0;
+        UpdateScore();
+        StartCoroutine(SpawnWaves());
+    }
+
+    void Update()
+    {
+        if (restart)
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                Application.LoadLevel(Application.loadedLevel);
+            }
+        }
+    }
+
+    IEnumerator SpawnWaves()
+    {
+        yield return new WaitForSeconds(startWait);
+        while (true)
+        {
+            for (int i = 0; i < hazardCount; i++)
+            {
+                GameObject hazard = hazards[Random.Range(0, hazards.Length)];
+                Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
+                //Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
+                Quaternion spawnRotation = Quaternion.identity;
+                Instantiate(hazard, spawnPosition, spawnRotation);
+                yield return new WaitForSeconds(spawnWait);
+
+                
+                    //Second object falling
+                    GameObject hazard2 = hazards[Random.Range(0, hazards.Length)];
+                    Vector4 spawnPosition1 = new Vector4(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
+                
+                    Quaternion spawnRotation1 = Quaternion.identity;
+                    Instantiate(hazard, spawnPosition, spawnRotation);
+                    yield return new WaitForSeconds(spawnWait);
+                
+            }
+
+
+            yield return new WaitForSeconds(waveWait);
+
+            if (gameOver)
+            {
+                restartText.text = "You can Click 'R' to Restart the game";
+                restart = true;
+                break;
+            }
+        }
+    }
+
+    public void AddScore(int newScoreValue)
+    {
+        score += newScoreValue * scoreMulti;
+        UpdateScore();
+    }
+
+    void UpdateScore()
+    {
+        scoreText.text = "Score: " + score;
+    }
+
+    public void GameOver()
+    {
+        gameOverText.text = "Life is Hard, Game is Over!";
+        gameOver = true;
+    }
+}
