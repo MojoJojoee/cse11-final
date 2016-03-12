@@ -1,6 +1,11 @@
 using UnityEngine;
 using System.Collections;
 
+[System.Serializable]
+public class Done_Boundary 
+{
+	public float xMin, xMax, zMin, zMax;
+}
 
 public class Done_PlayerController : MonoBehaviour
 {
