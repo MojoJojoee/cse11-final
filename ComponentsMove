@@ -1,0 +1,14 @@
+using UnityEngine;
+using System.Collections;
+
+public class ComponentsMove : MonoBehaviour
+{
+    public double speedModifier;//This can help modify the speed for special ability of player
+    public float speed;
+    
+
+	void Start ()
+	{
+		GetComponent<Rigidbody>().velocity = transform.forward * speed*1/4;
+	}
+}
