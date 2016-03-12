@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-//using System.SceneManager;
+using UnityEngine.SceneManagement;
 
 public class Done_GameController : MonoBehaviour
 {
@@ -39,7 +39,7 @@ public class Done_GameController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.T))
             {
-                Application.LoadLevel(Application.loadedLevel);
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                 Debug.Log(level);
             }
         }
@@ -67,19 +67,24 @@ public class Done_GameController : MonoBehaviour
                 //if(waveWait == 3)
                 //Second object falling
                 GameObject hazard2 = hazards[Random.Range(1, hazards.Length)];
+                
                 Vector4 spawnPosition1 = new Vector4(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
                 Quaternion spawnRotation1 = Quaternion.identity;
-                Instantiate(hazard, spawnPosition, spawnRotation);
+                Instantiate(hazard2, spawnPosition, spawnRotation);
                 yield return new WaitForSeconds(spawnWait);
+                for(int z =0; z<3; z++)
+                {
+                    Instantiate(hazard2, spawnPosition, spawnRotation); Instantiate(hazard2, spawnPosition, spawnRotation); Instantiate(hazard2, spawnPosition, spawnRotation); Instantiate(hazard2, spawnPosition, spawnRotation);
 
+                }
                 /*
-                //Third
-                hazard2 = hazards[Random.Range(0, hazards.Length)];
-                spawnPosition1 = new Vector4(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
+//Third
+hazard2 = hazards[Random.Range(0, hazards.Length)];
+spawnPosition1 = new Vector4(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
 
-                spawnRotation1 = Quaternion.identity;
-                Instantiate(hazard, spawnPosition, spawnRotation);
-                yield return new WaitForSeconds(spawnWait);*/
+spawnRotation1 = Quaternion.identity;
+Instantiate(hazard, spawnPosition, spawnRotation);
+yield return new WaitForSeconds(spawnWait);*/
 
             }
             yield return new WaitForSeconds(waveWait);
