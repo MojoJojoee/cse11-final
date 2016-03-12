@@ -1,10 +1,10 @@
 using UnityEngine;
 using System.Collections;
 
-public class EvasiveManeuver : MonoBehaviour
+public class Done_EvasiveManeuver : MonoBehaviour
 {
 	public Done_Boundary boundary;
-	public float tilt;
+	//public float tilt;
 	public float dodge;
 	public float smoothing;
 	public Vector2 startWait;
@@ -43,6 +43,6 @@ public class EvasiveManeuver : MonoBehaviour
 			Mathf.Clamp(GetComponent<Rigidbody>().position.z, boundary.zMin, boundary.zMax)
 		);
 		
-		GetComponent<Rigidbody>().rotation = Quaternion.Euler (0, 0, GetComponent<Rigidbody>().velocity.x * -tilt);
+		GetComponent<Rigidbody>().rotation = Quaternion.Euler (0, 0, GetComponent<Rigidbody>().velocity.x * -7);
 	}
 }
